@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="depixelizing.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="visualization.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="depixelizing.h" />
