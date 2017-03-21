@@ -24,7 +24,7 @@ public:
 	Depixelizing();
 	~Depixelizing();
 
-	void depixelize(const cv::Mat& , float); // main function of the class
+	void depixelize(const cv::Mat& , float); // main method of the class
 
 private:
 
