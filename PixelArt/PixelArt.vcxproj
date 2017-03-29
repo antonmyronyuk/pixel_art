@@ -82,7 +82,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="buildingSimilarityGraph.cpp" />
     <ClCompile Include="depixelizing.cpp" />
+    <ClCompile Include="heuristics.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="visualization.cpp" />
   </ItemGroup>

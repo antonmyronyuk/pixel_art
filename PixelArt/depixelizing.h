@@ -41,6 +41,15 @@ private:
 
 	//visualization
 	void showSimilarityGraph();
+
+	//heuristics
+	void resolveHeuristics();
+	void searchNeighbours(int &x, int &y, const std::vector <std::vector <int>>& a); // for curves heuristic
+	void search(int y, int x, int sy, int sx, std::vector <std::vector <int>>& a); // for sparse pixels heuristic
+	int curvesHeuristic(int x, int y);
+	int sparsePixelsHeuristic(int x, int y);
+	int islandsHeuristic(int x, int y);
+	unsigned char valence(unsigned char node);
 };
 
 #endif //DEPIXELIZING_H
