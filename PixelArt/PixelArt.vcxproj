@@ -83,12 +83,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="buildingSimilarityGraph.cpp" />
+    <ClCompile Include="cells.cpp" />
     <ClCompile Include="depixelizing.cpp" />
     <ClCompile Include="heuristics.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="visualization.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cells.h" />
     <ClInclude Include="depixelizing.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

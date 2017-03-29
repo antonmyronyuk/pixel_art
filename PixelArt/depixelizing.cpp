@@ -24,6 +24,9 @@ void Depixelizing::depixelize(const cv::Mat& image, float scaleFactor) {
 
 	resolveHeuristics();
 	showSimilarityGraph();
+
+	buildCells();
+	showCellGraph();
 }
 
 

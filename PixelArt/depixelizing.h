@@ -6,6 +6,7 @@
 #include <list>
 #include <math.h>
 #include <time.h>
+#include "cells.h"
 
 #define NEIGHBOUR_TOP 1
 #define NEIGHBOUR_TOP_RIGHT 2
@@ -34,6 +35,10 @@ private:
 	float m_scale; // scale factor
 	std::vector<unsigned char> m_connections; // similarity graph
 											  // (i, j) -> (i * m_w + j)
+	std::list<Vertex> m_vertexes;
+	std::vector<std::list<std::list<Vertex>::iterator>> m_curvesVertexes;
+	std::list<Edge> m_edges;
+	std::vector<std::vector<std::list<Vertex>::iterator>> m_pixelsToCells;
 
 	//building
 	void buildSimilarityGraph();
@@ -41,6 +46,7 @@ private:
 
 	//visualization
 	void showSimilarityGraph();
+	void showCellGraph();
 
 	//heuristics
 	void resolveHeuristics();
@@ -50,6 +56,9 @@ private:
 	int sparsePixelsHeuristic(int x, int y);
 	int islandsHeuristic(int x, int y);
 	unsigned char valence(unsigned char node);
+
+	//building cells
+	void buildCells();
 };
 
 #endif //DEPIXELIZING_H
