@@ -27,7 +27,10 @@ void Depixelizing::depixelize(const cv::Mat& image, float scaleFactor) {
 
 	buildCells();
 	showCellGraph();
+
+	combineCellsDiagonals();
+	showCellGraph();
+
+	remove2ValenceNodes();
+	showCellGraph();
 }
-
-
-

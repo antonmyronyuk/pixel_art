@@ -209,3 +209,141 @@ void Depixelizing::buildCells() {
 	m_edges.swap(edges);
 	m_pixelsToCells.swap(pixelsToCells);
 }
+
+
+void Depixelizing::combineCellsDiagonals() {
+
+	std::vector<std::list<Edge>::iterator> edgesToDell;
+	edgesToDell.reserve(2);
+
+	for (int y = 0; y < m_height - 1; ++y) {
+		for (int x = 0; x < m_width - 1; ++x) {
+			
+			int ind = y * m_width + x; //index of current pixel
+
+			if (m_connections[ind] & NEIGHBOUR_BOTTOM_RIGHT)
+			{
+				auto it6 = m_pixelsToCells[ind][6]; //vertex 6
+				edgesToDell.clear();
+				//eit - edges iterator
+				for (auto eit = it6->edges.begin(); eit != it6->edges.end(); ++eit) { //for all edges connected with vertex 6
+
+					if ((*eit)->v1 == it6) {
+						if ((*eit)->v2 == m_pixelsToCells[ind][5] || (*eit)->v2 == m_pixelsToCells[ind + 1][7]) {
+
+							(*eit)->v2->edges.remove(*eit);
+							edgesToDell.push_back(*eit);
+							//m_edges.erase(*eit);
+						}
+					} else {
+
+						if ((*eit)->v1 == m_pixelsToCells[ind][5] || (*eit)->v1 == m_pixelsToCells[ind + 1][7]) {
+
+							(*eit)->v1->edges.remove(*eit);
+							edgesToDell.push_back(*eit);
+							//m_edges.erase(*eit);
+						}
+					}
+				}
+				for (auto eit = edgesToDell.begin(); eit != edgesToDell.end(); ++eit) {
+					it6->edges.remove(*eit);
+					m_edges.erase(*eit);
+				}
+
+				//replace vertex 6
+				it6->x -= 0.25f;
+				it6->y += 0.25f;
+
+				//add new vertex
+				Vertex v;
+				v.addVertex(it6->x + 0.5f, it6->y - 0.5f);
+				m_vertexes.push_back(v);
+				auto vit = --m_vertexes.end(); //iterator on the last vertex
+
+				//add 3 new edges (not 4)
+				//because we replace one vertex with existing edges
+				Edge e;
+				e.addEdge(ind, ind + 1, vit, m_pixelsToCells[ind][5]);
+				m_edges.push_back(e);
+
+				e.addEdge(ind + m_width + 1, ind + 1, m_pixelsToCells[ind + 1][7], vit); 
+				m_edges.push_back(e);
+
+				auto eit = --m_edges.end();
+				vit->edges.push_back(eit);
+				m_pixelsToCells[ind + 1][7]->edges.push_back(eit);
+				vit->edges.push_back(--eit);
+				m_pixelsToCells[ind][5]->edges.push_back(eit);
+
+				//edge between diagonal pixels
+				e.addEdge(ind, ind + m_width + 1, it6, vit);
+				m_edges.push_back(e);
+
+				eit = --m_edges.end();
+				it6->edges.push_back(eit);
+				vit->edges.push_back(eit);
+			}
+			//like with NEIGHBOUR_BOTTOM_RIGHT
+			else if (m_connections[ind + 1] & NEIGHBOUR_BOTTOM_LEFT) {
+				
+				auto it6 = m_pixelsToCells[ind][6];
+				edgesToDell.clear();
+
+				for (auto eit = it6->edges.begin(); eit != it6->edges.end(); ++eit) {
+					if ((*eit)->v1 == it6) {
+						if ((*eit)->v2 == m_pixelsToCells[ind + m_width][5] || (*eit)->v2 == m_pixelsToCells[ind + 1][7]) {
+
+							(*eit)->v2->edges.remove(*eit);
+							edgesToDell.push_back(*eit);
+							//m_edges.erase(*eit);
+						}
+					} else {
+						if ((*eit)->v1 == m_pixelsToCells[ind + m_width][5] || (*eit)->v1 == m_pixelsToCells[ind + 1][7]) {
+							(*eit)->v1->edges.remove(*eit);
+							edgesToDell.push_back(*eit);
+							//m_edges.erase(*eit);
+						}
+					}
+				}
+
+				for (auto eit = edgesToDell.begin(); eit != edgesToDell.end(); ++eit) {
+					it6->edges.remove(*eit);
+					m_edges.erase(*eit);
+				}
+
+				//vertex 6
+				it6->x -= 0.25f;
+				it6->y -= 0.25f;
+
+				//add new vertex
+				Vertex v;
+				v.addVertex(it6->x + 0.5f, it6->y + 0.5f);
+				m_vertexes.push_back(v);
+				auto vit = --m_vertexes.end();
+
+				//add 3 new edges (not 4)
+				//because we replace one vertex with existing edges
+				Edge e;
+				e.addEdge(ind + m_width, ind + m_width + 1, m_pixelsToCells[ind + m_width][5], vit);
+				m_edges.push_back(e);
+
+				e.addEdge(ind + m_width + 1, ind + 1, vit, m_pixelsToCells[ind + 1][7]);
+				m_edges.push_back(e);
+
+				auto eit = --m_edges.end();
+				vit->edges.push_back(eit);
+				m_pixelsToCells[ind + 1][7]->edges.push_back(eit);
+				vit->edges.push_back(--eit);
+				m_pixelsToCells[ind + m_width][5]->edges.push_back(eit);
+
+				//edge between diagonal pixels
+				e.addEdge(ind + m_width, ind + 1, vit, it6);
+				m_edges.push_back(e);
+
+				eit = --m_edges.end();
+				it6->edges.push_back(eit);
+				vit->edges.push_back(eit);
+			}
+		}
+	}
+}

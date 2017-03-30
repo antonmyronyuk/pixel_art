@@ -59,6 +59,10 @@ private:
 
 	//building cells
 	void buildCells();
+	void combineCellsDiagonals();
+
+	//reconstructing cells
+	void remove2ValenceNodes();
 };
 
 #endif //DEPIXELIZING_H

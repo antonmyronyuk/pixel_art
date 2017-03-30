@@ -87,6 +87,7 @@
     <ClCompile Include="depixelizing.cpp" />
     <ClCompile Include="heuristics.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="reconstructCells.cpp" />
     <ClCompile Include="visualization.cpp" />
   </ItemGroup>
   <ItemGroup>

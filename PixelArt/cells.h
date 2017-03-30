@@ -4,8 +4,7 @@
 
 struct Edge;
 
-struct Vertex
-{
+struct Vertex {
 	// coordinates
 	float x; 
 	float y;
@@ -21,8 +20,7 @@ struct Vertex
 	}
 };
 
-struct Edge
-{
+struct Edge {
 	//vertexes on the edge
 	std::list<Vertex>::iterator v1;
 	std::list<Vertex>::iterator v2;
