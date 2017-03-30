@@ -64,10 +64,6 @@ private:
 	//reconstructing cells
 	void remove2ValenceNodes();
 
-
-
-	//bug fix
-	void func();//show all vertexes
 };
 
 #endif //DEPIXELIZING_H
