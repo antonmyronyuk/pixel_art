@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bugfixcpp.cpp" />
     <ClCompile Include="buildingSimilarityGraph.cpp" />
     <ClCompile Include="cells.cpp" />
     <ClCompile Include="depixelizing.cpp" />
