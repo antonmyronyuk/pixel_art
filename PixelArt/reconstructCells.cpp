@@ -63,3 +63,75 @@ void Depixelizing::remove2ValenceNodes()
 		}
 	}
 }
+
+
+void Depixelizing::reconstructPixelsToCells() {
+
+	const float r = 0.8f;
+
+	for (int y = 0; y < m_height; ++y) {
+		for (int x = 0; x < m_width; ++x) {
+
+			size_t ind = y * m_width + x;
+			m_pixelsToCells[ind].clear();
+			m_pixelsToCells[ind].reserve(10);
+			
+
+			//center
+			float cx = x + 0.5f;
+			float cy = y + 0.5f;
+
+			// add all veretexes in cirlce with radius = 0.8 pixel 
+			// and center in (cx, cy) to m_pixelsToCells[ind]
+
+			auto vit = m_vertexes.end();
+			for (auto it = m_vertexes.begin(); it != m_vertexes.end(); ++it) {
+				if (sqrtf((cx - it->x) * (cx - it->x) + ((cy - it->y) * (cy - it->y))) < r) {
+					vit = it;
+					break;
+				}
+			}
+
+			if (vit == m_vertexes.end()) {
+				continue;
+			}
+
+			m_pixelsToCells[ind].push_back(vit);
+
+			bool hasNext = true;
+
+			while (hasNext) {
+
+				hasNext = false;
+
+				auto vit2 = m_vertexes.end();
+				for (auto eit = vit->edges.begin(); eit != vit->edges.end(); ++eit) {
+
+					if ((*eit)->v1 == vit) {
+						if (sqrtf((cx - (*eit)->v2->x) * (cx - (*eit)->v2->x) + ((cy - (*eit)->v2->y) * (cy - (*eit)->v2->y))) < r &&
+							std::find(m_pixelsToCells[ind].begin(), m_pixelsToCells[ind].end(), (*eit)->v2) == m_pixelsToCells[ind].end()) {
+
+							vit2 = (*eit)->v2;
+							break;
+						}
+					}
+					else {
+						if (sqrtf((cx - (*eit)->v1->x) * (cx - (*eit)->v1->x) + ((cy - (*eit)->v1->y) * (cy - (*eit)->v1->y))) < r &&
+							std::find(m_pixelsToCells[ind].begin(), m_pixelsToCells[ind].end(), (*eit)->v1) == m_pixelsToCells[ind].end()) {
+							vit2 = (*eit)->v1;
+							break;
+						}
+					}
+				}
+
+				if (vit2 == m_vertexes.end()) {
+					break;
+				}
+
+				hasNext = true;
+				m_pixelsToCells[ind].push_back(vit2);
+				vit = vit2; // for searching next vertex
+			}
+		}
+	}
+}

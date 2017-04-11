@@ -47,6 +47,7 @@ private:
 	//visualization
 	void showSimilarityGraph();
 	void showCellGraph();
+	void showCellImage(); // show and save in cell_image.png
 
 	//heuristics
 	void resolveHeuristics();
@@ -63,6 +64,7 @@ private:
 
 	//reconstructing cells
 	void remove2ValenceNodes();
+	void reconstructPixelsToCells();
 
 };
 

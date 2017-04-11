@@ -78,3 +78,35 @@ void Depixelizing::showCellGraph() {
 	cv::imshow("CellGraph", img);
 	cv::waitKey(0);
 }
+
+void Depixelizing::showCellImage() {
+
+	const float scale = m_scale;
+	cv::Mat cellImage(m_height * scale, m_width * scale, CV_8UC3, cv::Scalar(0,0,0));
+
+	for (int y = 0; y < m_height; ++y) {
+		for (int x = 0; x < m_width; ++x) {
+
+			size_t ind = y * m_width + x; // index of current cell
+
+			std::vector <cv::Point> points;
+			for (size_t i = 0; i < m_pixelsToCells[ind].size(); ++i) {
+
+				points.push_back(cv::Point(static_cast<int>(m_pixelsToCells[ind][i]->x * scale),
+										   static_cast<int>(m_pixelsToCells[ind][i]->y * scale)));
+			}
+
+			int vertexCount;
+			vertexCount = m_pixelsToCells[ind].size();
+			cv::Scalar c(m_image.at<cv::Vec3b>(y, x)[0], m_image.at<cv::Vec3b>(y, x)[1], m_image.at<cv::Vec3b>(y, x)[2]);
+			cv::fillPoly(cellImage, (const cv::Point**)&points, &vertexCount, 1, c);
+
+			points.clear();
+		}
+	}
+
+	cv::imshow("cell_image", cellImage);
+	cv::imwrite("cell_image.png", cellImage);
+	cv::waitKey();
+
+}
