@@ -8,7 +8,7 @@ struct Vertex {
 	// coordinates
 	float x; 
 	float y;
-	//additional variable (not important)
+	//additional variable for searching curves
 	//true - if vertex is already visited
 	bool f;
 

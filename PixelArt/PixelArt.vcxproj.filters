@@ -39,6 +39,9 @@
     <ClCompile Include="combine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="curvesSearching.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="depixelizing.h">

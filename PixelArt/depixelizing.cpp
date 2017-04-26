@@ -40,4 +40,7 @@ void Depixelizing::depixelize(const cv::Mat& image, float scaleFactor) {
 	combineCells();
 	showCellGraph();
 
+	findAllCurves();
+	showCurves();
+
 }

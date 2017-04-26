@@ -110,3 +110,29 @@ void Depixelizing::showCellImage() {
 	cv::waitKey();
 
 }
+
+void Depixelizing::showCurves() {
+	const int scale = (int)m_scale;
+	std::vector <uchar> color;
+	cv::Mat img(m_height * scale + 10, m_width * scale + 10, CV_8UC3, cv::Scalar(0,0,0));
+	srand(time(NULL));
+	for (auto it = m_curvesVertexes.begin(); it != m_curvesVertexes.end(); ++it) {
+		color.clear();
+		color.push_back(rand() % 255); //B
+		color.push_back(rand() % 255); //G
+		color.push_back(rand() % 255); //R
+		for (auto vit = it->begin(); vit != it->end(); ++vit) {
+			cv::circle(img, 
+				cv::Point(cvRound((*vit)->x * scale + 5),
+				cvRound((*vit)->y * scale + 5)),
+				1,
+				cv::Scalar(color[0], color[1], color[2]),
+				2);
+		}
+		cv::imshow("Curves", img);
+		cv::waitKey(0);
+		
+	}
+
+
+}

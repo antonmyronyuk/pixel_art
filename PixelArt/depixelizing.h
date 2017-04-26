@@ -39,6 +39,7 @@ private:
 	std::vector<std::list<std::list<Vertex>::iterator>> m_curvesVertexes;
 	std::list<Edge> m_edges;
 	std::vector<std::vector<std::list<Vertex>::iterator>> m_pixelsToCells;
+	std::vector<std::vector<Vertex>> m_curves;
 
 	//building
 	void buildSimilarityGraph();
@@ -48,6 +49,7 @@ private:
 	void showSimilarityGraph();
 	void showCellGraph();
 	void showCellImage(); // show and save in cell_image.png
+	void showCurves();
 
 	//heuristics
 	void resolveHeuristics();
@@ -69,6 +71,12 @@ private:
 	//combining cells
 	bool connected(int ind1, int ind2);
 	void combineCells();
+
+	//searching curves
+	std::list<Vertex>::iterator searchCurve( //only one curve
+		std::list<Vertex>::iterator it, 
+		std::list<Vertex>::iterator it2);
+	void findAllCurves();
 
 };
 
