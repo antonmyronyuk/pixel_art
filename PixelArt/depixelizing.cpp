@@ -36,4 +36,8 @@ void Depixelizing::depixelize(const cv::Mat& image, float scaleFactor) {
 
 	reconstructPixelsToCells();
 	showCellImage();
+
+	combineCells();
+	showCellGraph();
+
 }

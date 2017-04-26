@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="buildingSimilarityGraph.cpp" />
     <ClCompile Include="cells.cpp" />
+    <ClCompile Include="combine.cpp" />
     <ClCompile Include="depixelizing.cpp" />
     <ClCompile Include="heuristics.cpp" />
     <ClCompile Include="main.cpp" />

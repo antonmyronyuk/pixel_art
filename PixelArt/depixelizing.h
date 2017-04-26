@@ -66,6 +66,10 @@ private:
 	void remove2ValenceNodes();
 	void reconstructPixelsToCells();
 
+	//combining cells
+	bool connected(int ind1, int ind2);
+	void combineCells();
+
 };
 
 #endif //DEPIXELIZING_H
