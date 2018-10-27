@@ -1,5 +1,5 @@
 # pixelArt
-A program for scaling images in low resolution (only pixel art)
+A program for scaling up images in low resolution (pixel art only)
 
 Current results:
 
